@@ -324,3 +324,47 @@ Relational operators are used to compare two values ​​or expressions. The re
 | 1          | `not`       | Logical NOT | Right-to-left | `not False or True` -> `True`       | Highest priority among logical operators.          |
 | 2          | `and`       | Logical AND | Left-to-right | `True or False and False` -> `True` | Short-circuit evaluation; evaluates before or.     |
 | 3          | `or`        | Logical OR  | Left-to-right | `True or False` -> `True`           | Short-circuit evaluation; lowest logical priority. |
+
+## Perform Input/Output console operations
+
+### The `print()` function
+Used to output data to the console.
+```python
+print("Hello, World!")
+```
+
+#### Formatting output with `sep` and `end`
+* **`sep`** (separator): Specifies how to separate multiple arguments passed to print. The default value is a single space `" "`.
+* **`end`** (end): Specifies what to print at the end of the call. The default value is a newline `\n`.
+
+```python
+print("Python", "is", "fun", sep="-")
+# Output: Python-is-fun
+
+print("Loading", end="... ")
+print("Complete!")
+# Output: Loading... Complete!
+```
+
+### The `input()` function
+Used to read a line of text entered by the user. **Crucially, `input()` always returns data as a string (`str`).**
+
+```python
+name = input("Enter your name: ")
+print("Hello, " + name)
+```
+
+#### Combining input with `int()` and `float()`
+Because `input()` always returns a string, you must explicitly cast the result if you need to perform numerical operations:
+
+```python
+# Converting input to an integer
+age_str = input("Enter your age: ")
+age = int(age_str) 
+
+# Converting input to a float directly (nesting)
+height = float(input("Enter your height in meters: "))
+
+print(f"Age is {age}, Height is {height}")
+```
+
