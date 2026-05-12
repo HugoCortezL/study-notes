@@ -95,6 +95,20 @@ num = 1e-5
 print(f"{num:.6f}") # Output: 0.000010
 ```
 
+
+### Accuracy of Floating-Point Numbers (EXTRA)
+Due to the way computers represent numbers in binary, certain decimal fractions cannot be represented with exact precision. This can sometimes lead to small rounding differences.
+
+```python
+print(0.1 + 0.2)          # Output: 0.30000000000000004
+print(0.1 + 0.2 == 0.3)   # Output: False
+```
+
+To compare floating-point numbers safely, you can check if the absolute difference is extremely small or use the `round()` function.
+```python
+print(round(0.1 + 0.2, 1) == 0.3) # Output: True
+```
+
 ### Binary, octal, decimal, and hexadecimal numeral systems (EXTRA)
 
 #### Representing Numbers
@@ -175,6 +189,32 @@ print(type(b)) # Output: <class 'int'>
 * Cannot start with a number
 * Can only contain alphanumeric characters and underscores (`A-Z`, `a-z`, `0-9`, and `_`).
 * Cannot be a Python keyword like `if`, `else`, or `while`.
+
+
+### Type Casting
+Type casting (or type conversion) is the process of changing the data type of a value.
+
+#### Implicit Conversion
+Python automatically converts one data type to another to prevent data loss, without requiring user intervention.
+```python
+num_int = 10
+num_float = 2.5
+result = num_int + num_float 
+print(type(result)) # Output: <class 'float'>
+```
+
+#### Explicit Conversion
+When you manually convert a value from one type to another using Python's built-in constructor functions.
+* `int()`: Converts to an integer.
+* `float()`: Converts to a floating-point number.
+* `str()`: Converts to a string.
+* `bool()`: Converts to a boolean.
+
+```python
+x = "10"
+y = int(x)   # Converts string "10" to integer 10
+z = float(5) # Converts integer 5 to float 5.0
+```
 
 ## Operators
 ### Arithmetic operators
