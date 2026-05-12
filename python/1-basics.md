@@ -1,8 +1,9 @@
 # Python Fundamentals
 
-## Python’s logic and structure
+## Logic and Structure
 
 ### Keywords
+Reserved words that have special meanings to the interpreter and cannot be used as variable names.
 
 | Category              | Keywords                                                          |
 | --------------------- | ----------------------------------------------------------------- |
@@ -20,47 +21,40 @@
 | Async                 | `async`, `await`                                                  |
 
 ### Indentation
+Leading whitespace at the beginning of a line of code used to define block scope.
 
-Indentation refers to the leading whitespace at the beginning of a line of code.
-Unlike other programming languages that use curly braces `{}` to define code blocks where indentation improves readability only, Python uses indentation to indicate which statements belong to a specific block.
+* **Executable Blocks**: Replaces curly braces `{}` used in other languages to define code blocks.
+* **Syntax Rule**: Incorrect or mixed indentation raises `IndentationError` or `TabError`.
+* **Style Convention (PEP 8)**: Recommends exactly **4 spaces** per indentation level.
 
-* Indentation is part of the language's syntax. Incorrect or inconsistent indentation may raise an `IndentationError` or `TabError`.
-* The official style guide for Python code (PEP 8) recommends using 4 spaces per indentation level.
+```python
+if True:
+    print("Indented block") # Output: Indented block
+```
 
 ### Comments
+Source code annotations ignored by the Python interpreter.
 
-Comments are notes within the source code that are ignored by the interpreter during execution. They can be used to explain code logic, make the program more readable, disable code during debugging, among other purposes.
+* **Single-line**: Begins with a hash `#` symbol. Anything following it on that line is ignored.
+* **Multi-line**: Not natively supported; implemented using consecutive `#` tags or multi-line string literals (`"""` / `'''`) not assigned to variables.
 
-#### Types of comments
+```python
+# Single line comment
+print("Visible") # Output: Visible
 
-* Single-line comment: Start with `#`, anything following the hash symbol on the same line is ignored.
-    ```python
-    # This is a comment
-    print("Hello, World!")  # This is a comment
-    ```
+"""
+Multi-line
+docstring comment
+"""
+print("Code runs") # Output: Code runs
+```
 
-* Multi-line comment: Python doesn't have a specific syntax for multi-line comments. To write multiple lines, you can:
+---
 
-    * Use a `#` symbol at the beginning of each line
-        ```python
-        # this is the first line
-        # second line
-        # final line
-        print("Hello, World!")
-        ```
-    * Use string literals `'''` or `"""`. Python will ignore them if they are not assigned to a variable.
-        ```python
-        """
-        this is the first line
-        second line
-        final line
-        """
-        print("Hello, World!")
-        ```
-
-## Introduction to literals and variables
+## Literals and Variables
 
 ### Data Types
+Built-in data types representing different data structures and values.
 
 | Category        | Type / Structure | Description                           | Example                 |
 | --------------- | ---------------- | ------------------------------------- | ----------------------- |
@@ -69,7 +63,7 @@ Comments are notes within the source code that are ignored by the interpreter du
 | Numeric Types   | `float`          | Decimal numbers                       | `3.14`, `-0.5`          |
 | Numeric Types   | `complex`        | Complex numbers                       | `2 + 3j`                |
 | Boolean Type    | `bool`           | Boolean values                        | `True`, `False`         |
-| Null Type       | `NoneType`       | Represents absence of value           | `None`                  |
+| Null Type       | `NoneType`       | Absence of value                      | `None`                  |
 | Sequence Types  | `list`           | Mutable ordered collection            | `[1, 2, 3]`             |
 | Sequence Types  | `tuple`          | Immutable ordered collection          | `(1, 2, 3)`             |
 | Sequence Types  | `range`          | Immutable numeric sequence            | `range(5)`              |
@@ -80,291 +74,249 @@ Comments are notes within the source code that are ignored by the interpreter du
 | Binary Types    | `bytearray`      | Mutable binary data                   | `bytearray(b"hello")`   |
 | Binary Types    | `memoryview`     | Memory-efficient binary view          | `memoryview(b"abc")`    |
 
-
 ### Scientific notation (EXTRA)
-Scientific notation is used to represent very large or very small numbers using the letter `e` or `E` to indicate the power of 10.
+A method representing extremely large or small numbers using the letter `e` or `E` (powers of 10).
 
 ```python
 num = 51000
 print(f"{num:e}")    # Output: 5.100000e+04
-print(f"{num:.2e}")  # Output: 5.10e+04 (rounded to 2 decimal places)
-```
+print(f"{num:.2e}")  # Output: 5.10e+04
 
-```python
-num = 1e-5
-print(f"{num:.6f}") # Output: 0.000010
+num_small = 1e-5
+print(f"{num_small:.6f}") # Output: 0.000010
 ```
-
 
 ### Accuracy of Floating-Point Numbers (EXTRA)
-Due to the way computers represent numbers in binary, certain decimal fractions cannot be represented with exact precision. This can sometimes lead to small rounding differences.
+Binary formats cannot represent certain decimal fractions perfectly, leading to minor rounding variances.
+
+* **Comparison Safety**: Use `round()` or verify absolute differences are below a chosen tolerance threshold.
 
 ```python
 print(0.1 + 0.2)          # Output: 0.30000000000000004
 print(0.1 + 0.2 == 0.3)   # Output: False
-```
-
-To compare floating-point numbers safely, you can check if the absolute difference is extremely small or use the `round()` function.
-```python
 print(round(0.1 + 0.2, 1) == 0.3) # Output: True
 ```
 
-### Binary, octal, decimal, and hexadecimal numeral systems (EXTRA)
+### Numeral systems (EXTRA)
+Integers can be represented and converted directly in various mathematical bases.
 
-#### Representing Numbers
-You can define integers directly in different bases by using specific prefixes.
-* Binary (Base-2): Prefix with `0b` or `0B` (e.g., `0b1010`).
-* Octal (Base-8): Prefix with `0o` or `0O` (e.g., `0o12`).
-* Decimal (Base-10): No prefix (e.g., `10`).
-* Hexadecimal (Base-16): Prefix with `0x` or `0X` (e.g., `0xA`)
-
-#### Converting Decimal to Other Bases
-Python includes built-in functions to convert a decimal integer into a string representation of another base.
-* `bin(number)`: Returns the binary string prefixed with `0b`.
-* `oct(number)`: Returns the octal string prefixed with `0o`.
-* `hex(number)`: Returns the hexadecimal string prefixed with `0x`.
+* **Binary (Base-2)**: Prefixed with `0b` or `0B`.
+* **Octal (Base-8)**: Prefixed with `0o` or `0O`.
+* **Decimal (Base-10)**: Standard notation (no prefix).
+* **Hexadecimal (Base-16)**: Prefixed with `0x` or `0X`.
 
 ```python
-num = 10
-print(bin(num))  # Output: '0b1010'
-print(oct(num))  # Output: '0o12'
-print(hex(num))  # Output: '0xa'
-```
+# Base Representations
+print(0b1010) # Output: 10
+print(0o12)   # Output: 10
+print(0xA)    # Output: 10
 
-#### Converting Other Bases to Decimal
-The `int()` function can convert a string of any base back to a decimal integer by specifying the base as the second argument:
-* Binary to Decimal: `int("1010", 2)` returns `10`.
-* Octal to Decimal: `int("12", 8)` returns `10`.
-* Hexadecimal to Decimal: `int("a", 16)` returns `10`.
+# Integer Base Conversions
+print(bin(10))  # Output: '0b1010'
+print(oct(10))  # Output: '0o12'
+print(hex(10))  # Output: '0xa'
+
+# String-to-Base Conversions
+print(int("1010", 2)) # Output: 10
+print(int("a", 16))   # Output: 10
+```
 
 ### Variables
-Variables are names that refer to objects stored in memory.
+Identifiers acting as pointers to objects in memory. Created instantly upon first value assignment (`=`).
 
-#### Creating Variables
-Unlike some programming languages, you don't need to declare a variable before using it. The variable is created at the moment you first assign a value to it using the `=` operator.
+* **Case-Sensitivity**: `fruit` and `Fruit` are completely unique identifiers.
+* **Descriptive Naming**: Follow standard **`snake_case`** style.
+* **Character Constraints**: Must begin with a **letter** or **underscore** (`_`). Can only contain **alphanumeric** characters and underscores. Cannot use reserved Python **keywords**.
 
+#### Assignment Techniques
 ```python
+# Single Assignment
 fruit = "Apple"
-```
 
-* Variable names are case-sensitive. `fruit` and `Fruit` are treated as two completely different variables.
-
-#### Multiple Assignment
-* You can assign values to multiple variables at once
-```python
+# Multiple Assignment
 x, y, z = 1, 2, 3
-```
-* You can assign the same value to multiple variables in one line
-```python
-x = y = z = 10
-```
-* Python supports swapping values without a temporary variable
-```python
-x = 10
-y = 20
+print(x, y, z) # Output: 1 2 3
 
-x, y = y, x
+# Chained Assignment
+x = y = z = 10
+print(x, y, z) # Output: 10 10 10
+
+# Variable Swapping
+a, b = 10, 20
+a, b = b, a
+print(a, b) # Output: 20 10
 ```
 
 #### Dynamic Typing
-Python is dynamically typed, meaning you don't need to specify the data type when creating a variable. The same variable can reference objects of different types during execution; the variable name stays the same, but the referenced object changes.
+Variables can dynamically rebind to objects of different data types during runtime.
+
 ```python
-value = 10
-value = "hello"
-value = [1, 2, 3]
+val = 10
+print(type(val)) # Output: <class 'int'>
+
+val = "changed"
+print(type(val)) # Output: <class 'str'>
 ```
-
-* `type()`: Returns the data type of a variable.
-```python
-a = "ola"
-print(type(a)) # Output: <class 'str'>
-b = 2
-print(type(b)) # Output: <class 'int'>
-```
-
-#### Naming Conventions
-* Follow `snake_case`
-* Use descriptive names
-* Must start with a letter or an underscore `_`.
-* Cannot start with a number
-* Can only contain alphanumeric characters and underscores (`A-Z`, `a-z`, `0-9`, and `_`).
-* Cannot be a Python keyword like `if`, `else`, or `while`.
-
 
 ### Type Casting
-Type casting (or type conversion) is the process of changing the data type of a value.
+Converting values from one data type to another.
 
-#### Implicit Conversion
-Python automatically converts one data type to another to prevent data loss, without requiring user intervention.
+* **Implicit Conversion**: Python automatically converts the type to prevent loss during operations (e.g., int to float).
+* **Explicit Conversion**: Manually forcing a conversion via constructor functions: **`int()`**, **`float()`**, **`str()`**, **`bool()`**.
+
 ```python
-num_int = 10
-num_float = 2.5
-result = num_int + num_float 
+# Implicit
+result = 10 + 2.5
 print(type(result)) # Output: <class 'float'>
+
+# Explicit
+x = int("10") 
+print(x) # Output: 10
+
+z = float(5) 
+print(z) # Output: 5.0
 ```
 
-#### Explicit Conversion
-When you manually convert a value from one type to another using Python's built-in constructor functions.
-* `int()`: Converts to an integer.
-* `float()`: Converts to a floating-point number.
-* `str()`: Converts to a string.
-* `bool()`: Converts to a boolean.
-
-```python
-x = "10"
-y = int(x)   # Converts string "10" to integer 10
-z = float(5) # Converts integer 5 to float 5.0
-```
+---
 
 ## Operators
-### Arithmetic operators
-Used to perform mathematical calculations on numbers.
 
-| Operator | Name           | Description                                         | Example               | Return Type  |
-| -------- | -------------- | --------------------------------------------------- | --------------------- | ------------ |
-| `+`      | Addition       | Adds two operands                                   | `10 + 3` -> `13`      | Int or Float |
-| `-`      | Subtraction    | Subtracts the right operand from the left           | `10 - 3` -> `7`       | Int or Float |
-| `*`      | Multiplication | Multiplies two operands                             | `10 * 3` -> `30`      | Int or Float |
-| `/`      | Division       | Divides the left operand by the right               | `10 / 3` -> `3.33333` | Float        |
-| `//`     | Floor Division | Divides and rounds down to the nearest whole number | `10 // 3` -> `3`      | Int or Float | 
-| `%`      | Modulus        | Returns the remainder of the division               | `10 % 3` -> `1`       | Int or Float | 
-| `**`     | Exponentiation | Raises the left operand to the power of the right   | `10 ** 3` -> `1000`   | Int or Float | 
+### Arithmetic operators
+Execute mathematical computations directly on numerical operands.
+
+| Operator | Name           | Description                                | Example               | Return Type  |
+| -------- | -------------- | ------------------------------------------ | --------------------- | ------------ |
+| `+`      | Addition       | Adds two operands                          | `10 + 3` -> `13`      | Int or Float |
+| `-`      | Subtraction    | Subtracts right from left                  | `10 - 3` -> `7`       | Int or Float |
+| `*`      | Multiplication | Multiplies two operands                    | `10 * 3` -> `30`      | Int or Float |
+| `/`      | Division       | Divides left by right                      | `10 / 3` -> `3.33333` | Float        |
+| `//`     | Floor Division | Divides and rounds down to nearest integer | `10 // 3` -> `3`      | Int or Float | 
+| `%`      | Modulus        | Returns integer remainder of division      | `10 % 3` -> `1`       | Int or Float | 
+| `**`     | Exponentiation | Raises left to the power of right          | `10 ** 3` -> `1000`   | Int or Float | 
 
 ### String operators
-Python utilizes a few operators specifically for manipulating and combining strings.
+Dedicated syntax designed to manipulate or merge string sequences.
 
-| Operator | Name          | Description                                                        | Example                    |
-| -------- | ------------- | ------------------------------------------------------------------ | -------------------------- |
-| `+`      | Concatenation | Joins two strings together                                         | `"Py" + "thon"` -> `Python` |
-| `*`      | Repetition    | Repeats a string a specified number of times (requires an integer) | `"Py" * 3` -> `PyPyPy`     |
+| Operator | Name          | Description                                                        | Example                     |
+| -------- | ------------- | ------------------------------------------------------------------ | --------------------------- |
+| `+`      | Concatenation | Combines string items                                              | `"Py" + "thon"` -> `Python` |
+| `*`      | Repetition    | Multiplies string sequence count (requires integer)                | `"Py" * 3` -> `PyPyPy`      |
 
 ### Assignment and shortcut operators
-Python uses assignment operators to store a value in a variable. It also offers shortcut operators that combine arithmetic or bitwise operations with an assignment.
+Store and assign values, often integrating mathematics or bitwise operations into a consolidated step.
 
-| Operator | Name                           | Example   | Equivalent To |
-| -------- | ------------------------------ | --------- | ------------- |
-| `=`      | Assignment                     | `x = 5`   | `x = 5`       |
-| `+=`     | Addition Assignment            | `x += 5`  | `x = x + 5`   |
-| `-=`     | Subtraction Assignment         | `x -= 5`  | `x = x - 5`   |
-| `*=`     | Multiplication Assignment      | `x *= 5`  | `x = x * 5`   |
-| `/=`     | Division Assignment            | `x /= 5`  | `x = x / 5`   |
-| `//=`    | Floor Division Assignment      | `x //= 5` | `x = x // 5`  |
-| `%=`     | Modulus Assignment             | `x %= 5`  | `x = x % 5`   |
-| `**=`    | Exponentiation Assignment      | `x **= 5` | `x = x ** 5`  |
-| `&=`     | Bitwise AND Assignment         | `x &= 5`  | `x = x & 5`   |
-| `|=`     | Bitwise OR Assignment          | `x |= 5`  | `x = x | 5`   |
-| `^=`     | Bitwise XOR Assignment         | `x ^= 5`  | `x = x ^ 5`   |
-| `>>=`    | Right Shift Assignment         | `x >>= 5` | `x = x >> 5`  |
-| `<<=`    | Left Shift Assignment          | `x <<= 5` | `x = x << 5`  |
+| Operator | Name                           | Example          | Equivalent To           |
+| -------- | ------------------------------ | ---------------- | ----------------------- |
+| `=`      | Assignment                     | `x = 5`          | `x = 5`                 |
+| `+=`     | Addition Assignment            | `x += 5`         | `x = x + 5`             |
+| `-=`     | Subtraction Assignment         | `x -= 5`         | `x = x - 5`             |
+| `*=`     | Multiplication Assignment      | `x *= 5`         | `x = x * 5`             |
+| `/=`     | Division Assignment            | `x /= 5`         | `x = x / 5`             |
+| `//=`    | Floor Division Assignment      | `x //= 5`        | `x = x // 5`            |
+| `%=`     | Modulus Assignment             | `x %= 5`         | `x = x % 5`             |
+| `**=`    | Exponentiation Assignment      | `x **= 5`        | `x = x ** 5`            |
+| `&=`     | Bitwise AND Assignment         | `x &= 5`         | `x = x & 5`             |
+| `\|=`    | Bitwise OR Assignment          | `x \|= 5`        | `x = x \| 5`            |
+| `^=`     | Bitwise XOR Assignment         | `x ^= 5`         | `x = x ^ 5`             |
+| `>>=`    | Right Shift Assignment         | `x >>= 5`        | `x = x >> 5`            |
+| `<<=`    | Left Shift Assignment          | `x <<= 5`        | `x = x << 5`            |
 | `:=`     | Walrus (Assignment Expression) | `print(x := 5)`  | `x = 5` <br> `print(x)` |
 
 ### Unary operators
-| Operator | Name                         | Example                                      |
-| -------- | ---------------------------- | -------------------------------------------- |
-| `+`      | Positive Unary (Identity)    | `+5` -> 5                                    |
-| `-`      | Negative Unary (Negation)    | `x = 5; -x` -> `-5` <br> `x = -5; -x` -> `5` |
-| `~`      | Bitwise NOT (Bits inversion) | `~5` -> `-6` <br> `~(-10)` -> `9`             |
+Affects a solitary operand logic or sign value directly.
+
+| Operator | Name                           | Example                                      |
+| -------- | ------------------------------ | -------------------------------------------- |
+| `+`      | Positive Unary (Identity)      | `+5` -> 5                                    |
+| `-`      | Negative Unary (Negation)      | `x = 5; -x` -> `-5` <br> `x = -5; -x` -> `5` |
+| `~`      | Bitwise NOT (Bits inversion)   | `~5` -> `-6` <br> `~(-10)` -> `9`            |
 | `not`    | Logical NOT (Logical Negation) | `not True` -> `False` <br> `not 0` -> `True` |
 
 ### Boolean operators
-| Operator | Name                      | Description                                  | Example |
-| -------- | ------------------------- | -------------------------------------------- | ---------- | 
-| `not`    | Logical NOT (Negation)    | Inverts the boolean value.                   | `not True` -> `False`| 
-| `and`    | Logical AND (Conjunction) | Returns `True` only if both sides are true.  | `True and False` -> `False`| 
-| `or`     | Logical OR (Disjunction)  | Returns `True` if at least one side is true. | `True or False` -> `True`| 
-| `is`     | Identity                  | Returns `True` if both variables are the same object. | `a is a` -> `True`| 
-| `is not` | Identity                  | Returns `True` if both variables are not the same object. | `a is not a` -> `False`| 
+Performs foundational logic checks and evaluates object identities.
+
+| Operator | Name                      | Description                                     | Example                     |
+| -------- | ------------------------- | ----------------------------------------------- | --------------------------- | 
+| `not`    | Logical NOT (Negation)    | Inverts the boolean state                       | `not True` -> `False`       | 
+| `and`    | Logical AND (Conjunction) | Returns `True` only if both operands are true   | `True and False` -> `False` | 
+| `or`     | Logical OR (Disjunction)  | Returns `True` if any operand is true           | `True or False` -> `True`   | 
+| `is`     | Identity                  | Returns `True` if referencing same object       | `a is a` -> `True`          | 
+| `is not` | Identity                  | Returns `True` if referencing different objects | `a is not a` -> `False`     | 
 
 ### Boolean expressions
-A boolean expression is any piece of code that Python can evaluate as either true or false. Python evaluates these expressions from left to right and uses the short-circuit evaluation strategy.
+Formulations returning boolean states. Read Left-to-Right.
 
-* Short-circuit `and`: If the first value is false, Python returns false without evaluating the second value.
-* Short-circuit `or`: If the first value is true, Python returns true without evaluating the second value.
+* **Short-Circuiting**: Processing immediately halts once the logic finalizes (e.g., finding False in `and`, or True in `or`). The last evaluated item value is returned.
+* **Falsy Values**: `0`, `""` (empty str), `[]` (empty list), and `None`.
+* **Truthy Values**: All populated, non-empty values.
 
-#### The behavior with non-boolean objects
-In Python, values such as `0`, `""` (empty string), `[]` (empty list), and `None` are considered falsy. Any other non-empty value is truthy.
-
-
-Due to short-circuiting, the operators `and` and `or` return the last evaluated value, and not necessarily the pure boolean (`True`/`False`):
 ```python
-result_or = "Python" or 20  
-print(result_or) # Output: "Python"
-result_and = "Python" and 20  
-print(result_and)# Output: 20
+print("Python" or 20) # Output: "Python"
+print("Python" and 20) # Output: 20
 ```
 
 ### Relational operators
-Relational operators are used to compare two values ​​or expressions. The result of the comparison will always be a boolean value (`True` or `False`).
+Binary comparison operators. Continually return explicit boolean outputs.
 
-| Operator | Name                     | Description                                                                 | Example               |
-| -------- | ------------------------ | --------------------------------------------------------------------------- | --------------------- | 
-| `==`     | Equal                    | Checks if the left value is equal to the right value.                       | `10 == 20` -> `False` |
-| `!=`     | Not equal                | Checks if the left value is different from the right value.                 | `10 != 20` -> `True`  |
-| `>`      | Greater than             | Checks if the left value is greater than the right value.                   | `10 > 20` -> `False`  |
-| `<`      | Less than                | Checks if the left value is less than the right value.                      | `10 < 20` -> `True`   |
-| `>=`     | Greater than or equal to | Checks if the left value is greater than or equal to the right value.       | `10 >= 10` -> `True`  |
-| `<=`     | Less than or equal to    | Checks if the left value is less than or equal to the right value.          | `10 <= 20` -> `True`  |
+| Operator | Name                     | Description                                     | Example               |
+| -------- | ------------------------ | ----------------------------------------------- | --------------------- | 
+| `==`     | Equal                    | Verifies left matches right value               | `10 == 20` -> `False` |
+| `!=`     | Not equal                | Verifies left value differs from right          | `10 != 20` -> `True`  |
+| `>`      | Greater than             | Checks if left value is larger than right       | `10 > 20` -> `False`  |
+| `<`      | Less than                | Checks if left value is smaller than right      | `10 < 20` -> `True`   |
+| `>=`     | Greater than or equal to | Checks if left is larger or identical to right  | `10 >= 10` -> `True`  |
+| `<=`     | Less than or equal to    | Checks if left is smaller or identical to right | `10 <= 20` -> `True`  |
 
 ### Priorities and binding
-| Precedence | Operator(s)         | Category                       | Associativity | Example                | Description                                                 |
-| ---------- | ------------------- | ------------------------------ | ------------- | ---------------------- | ----------------------------------------------------------- |
-| 1          | `()`                | Parentheses                    | Left-to-right | `(2 + 3) * 4` -> `20`  | Forces overriding of default precedence.                    |
-| 2          | `**`                | Exponentiation                 | Right-to-left | `2 ** 3 ** 2` -> `512` | Evaluated as 2 ** (3 ** 2).                                 |
-| 3          | `+x`, `-x`, `~x`    | Unary Plus, Minus, Bitwise NOT | Right-to-left | `-5 + 3` -> `-2`       | Applies directly to a single right-hand operand.            |
-| 4          | `*`, `/`, `//`, `%` | Multiplicative Arithmetic      | Left-to-right | `10 / 2 * 3` -> `15.0` | Grouped together; evaluated in order of appearance.         |
-| 5          | `+`, `-`            | Additive Arithmetic / String   | Left-to-right | `5 + 3 - 2` -> `6`     | Standard math addition/subtraction or string concatenation. |
-| 6          | `>>`,  `<<`         | Bitwise Shifts                 | Left-to-right | `2 << 2` -> `8`        | Shifts binary bits left or right.                           |
-| 7          | `&`                 | Bitwise AND                    | Left-to-right | `5 & 3` -> `1`         | Bitwise conjunction or set intersection.                    |
-| 8          | `^`                 | Bitwise XOR                    | Left-to-right | `5 ^ 3` -> `6`         | Bitwise exclusive OR.                                       |
-| 9          | `|`                 | Bitwise OR                     | Left-to-right | `5 | 3` -> `7`         | Bitwise disjunction or set union.                           |
+Determines evaluation priority, cascading from highest ranking to lowest.
 
-**Logical Operators**
-| Precedence | Operator(s) | Category    | Associativity | Example                             | Description                                        |
-| ---------- | ----------- | ----------- | ------------- | ----------------------------------- | -------------------------------------------------- |
-| 1          | `not`       | Logical NOT | Right-to-left | `not False or True` -> `True`       | Highest priority among logical operators.          |
-| 2          | `and`       | Logical AND | Left-to-right | `True or False and False` -> `True` | Short-circuit evaluation; evaluates before or.     |
-| 3          | `or`        | Logical OR  | Left-to-right | `True or False` -> `True`           | Short-circuit evaluation; lowest logical priority. |
+| Precedence | Operator(s)         | Category                       | Associativity | Example                | Description                         |
+| ---------- | ------------------- | ------------------------------ | ------------- | ---------------------- | ----------------------------------- |
+| 1          | `()`                | Parentheses                    | Left-to-right | `(2 + 3) * 4` -> `20`  | Forces overrides of defaults        |
+| 2          | `**`                | Exponentiation                 | Right-to-left | `2 ** 3 ** 2` -> `512` | Evaluated as 2 ** (3 ** 2)          |
+| 3          | `+x`, `-x`, `~x`    | Unary Plus, Minus, Bitwise NOT | Right-to-left | `-5 + 3` -> `-2`       | Unary operand operation             |
+| 4          | `*`, `/`, `//`, `%` | Multiplicative Arithmetic      | Left-to-right | `10 / 2 * 3` -> `15.0` | Evaluates left-to-right sequence    |
+| 5          | `+`, `-`            | Additive Arithmetic / String   | Left-to-right | `5 + 3 - 2` -> `6`     | Addition / Concatenation operations |
+| 6          | `>>`,  `<<`         | Bitwise Shifts                 | Left-to-right | `2 << 2` -> `8`        | Modifies bits left or right         |
+| 7          | `&`                 | Bitwise AND                    | Left-to-right | `5 & 3` -> `1`         | Logical bitwise intersection        |
+| 8          | `^`                 | Bitwise XOR                    | Left-to-right | `5 ^ 3` -> `6`         | Exclusive OR bit logic              |
+| 9          | `\|`                | Bitwise OR                     | Left-to-right | `5 \| 3` -> `7`        | Inclusive OR bit logic              |
 
-## Perform Input/Output console operations
+**Logical Operators Precedence**
+| Precedence | Operator(s) | Category    | Associativity | Example                             | Description                                       |
+| ---------- | ----------- | ----------- | ------------- | ----------------------------------- | ------------------------------------------------- |
+| 1          | `not`       | Logical NOT | Right-to-left | `not False or True` -> `True`       | Highest logical operator priority                 |
+| 2          | `and`       | Logical AND | Left-to-right | `True or False and False` -> `True` | Intermediate priority; short-circuit evaluation   |
+| 3          | `or`        | Logical OR  | Left-to-right | `True or False` -> `True`           | Lowest logical priority; short-circuit evaluation |
+
+---
+
+## Console I/O
 
 ### The `print()` function
-Used to output data to the console.
-```python
-print("Hello, World!")
-```
+Outputs text directly to the standard console stream.
 
-#### Formatting output with `sep` and `end`
-* **`sep`** (separator): Specifies how to separate multiple arguments passed to print. The default value is a single space `" "`.
-* **`end`** (end): Specifies what to print at the end of the call. The default value is a newline `\n`.
+* **`sep`**: Defines spacer placed between multiple arguments (Default: space `" "`).
+* **`end`**: Defines termination output value (Default: newline `\n`).
 
 ```python
-print("Python", "is", "fun", sep="-")
-# Output: Python-is-fun
-
-print("Loading", end="... ")
-print("Complete!")
-# Output: Loading... Complete!
+print("A", "B", sep="-") # Output: A-B
+print("X", end="...")
+print("Y")               # Output: X...Y
 ```
 
 ### The `input()` function
-Used to read a line of text entered by the user. **Crucially, `input()` always returns data as a string (`str`).**
+Reads a text entry line typed directly by the console user.
+
+* **Data Type Requirement**: The incoming value is **always returned as a string (`str`)**.
+* **Mathematical Processing**: Numeric operations require nesting `input()` inside an explicit cast construct like **`int()`** or **`float()`**.
 
 ```python
-name = input("Enter your name: ")
-print("Hello, " + name)
+# Reading strings
+name = input("Enter name: ") # If input is "Alex"
+print(name)                  # Output: Alex
+
+# Reading/Converting Numeric Integers
+age = int(input("Enter age: ")) # Input "30" parses to int 30
+print(age + 1)                  # Output: 31
 ```
-
-#### Combining input with `int()` and `float()`
-Because `input()` always returns a string, you must explicitly cast the result if you need to perform numerical operations:
-
-```python
-# Converting input to an integer
-age_str = input("Enter your age: ")
-age = int(age_str) 
-
-# Converting input to a float directly (nesting)
-height = float(input("Enter your height in meters: "))
-
-print(f"Age is {age}, Height is {height}")
-```
-
